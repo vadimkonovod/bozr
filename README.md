@@ -12,14 +12,11 @@ glide install
 
 Dependencies:
 - github.com/xeipuuv/gojsonschema
-- github.com/xeipuuv/gojsonschema
 - github.com/fatih/color
 - github.com/mattn/go-colorable
 - github.com/mattn/go-isatty
 - github.com/clbanning/mxj
 - github.com/fatih/structs
-- github.com/lestrrat/go-libxml2
-- github.com/pkg/errors
 
 ## Command-line arguments
 - d - path to directory with test-cases-json files
