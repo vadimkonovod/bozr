@@ -41,9 +41,9 @@ Represents http request parameters
         "bodyFile" : "admins.json"
     }
 ```
-Field | Description 
------------- | ------------- 
-method | http method 
+Field | Description
+------------ | -------------
+method | http method
 url | http request URL
 headers | http request headers
 params | http query params
@@ -77,7 +77,7 @@ body | body matchers: equals, search, size |
             "~users.name":"Joe",
             "errors.size()": "0"
         }
-    }    
+    }
 ```
 Type | Assertion | Example
 ------------ | ------------- | --------------
@@ -101,3 +101,5 @@ Dependencies:
 - github.com/mattn/go-isatty
 - github.com/clbanning/mxj
 - github.com/fatih/structs
+- github.com/lestrrat/go-libxml2
+- github.com/pkg/errors
