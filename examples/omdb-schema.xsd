@@ -1,0 +1,36 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="movie">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="title"/>
+                <xs:attribute type="xs:short" name="year"/>
+                <xs:attribute type="xs:string" name="rated"/>
+                <xs:attribute type="xs:string" name="released"/>
+                <xs:attribute type="xs:string" name="runtime"/>
+                <xs:attribute type="xs:string" name="genre"/>
+                <xs:attribute type="xs:string" name="director"/>
+                <xs:attribute type="xs:string" name="writer"/>
+                <xs:attribute type="xs:string" name="actors"/>
+                <xs:attribute type="xs:string" name="plot"/>
+                <xs:attribute type="xs:string" name="language"/>
+                <xs:attribute type="xs:string" name="country"/>
+                <xs:attribute type="xs:string" name="awards"/>
+                <xs:attribute type="xs:anyURI" name="poster"/>
+                <xs:attribute type="xs:byte" name="metascore"/>
+                <xs:attribute type="xs:float" name="imdbRating"/>
+                <xs:attribute type="xs:string" name="imdbVotes"/>
+                <xs:attribute type="xs:string" name="imdbID"/>
+                <xs:attribute type="xs:string" name="type"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="response"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
