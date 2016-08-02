@@ -85,6 +85,10 @@ equals | Root 'users' array zero element has value of 'id' equal to '123'  | "us
 search | Root 'users' array contains element with 'name' equal to 'Jack'  | "users.name" : "Jack"
 size | Root 'company' element has 'users' array with '22' elements within 'buildings' array | "company.buildings.users.size()" : "22"
 
+XML:
+- To match attribute use `-` symbol before attribute name. E.g. `users.0.-id`
+- Namespace are ignored
+
 ## Dependency management
 To build project you need a dependency management tool - https://glide.sh/
 After you installed it, you can run the following command to download all dependencies:
