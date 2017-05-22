@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
@@ -52,6 +53,7 @@ var (
 	versionFlag     bool
 	junitFlag       bool
 	junitOutputFlag string
+	migrateFlag     bool
 
 	info  *log.Logger
 	debug *log.Logger
@@ -92,6 +94,7 @@ func main() {
 
 	flag.BoolVar(&junitFlag, "junit", false, "Enable junit xml reporter")
 	flag.StringVar(&junitOutputFlag, "junit-output", "./report", "Destination for junit report files. Default ")
+	flag.BoolVar(&migrateFlag, "migrate", false, "")
 
 	flag.Parse()
 
@@ -127,6 +130,11 @@ func main() {
 	_, err := os.Lstat(src)
 	if err != nil {
 		terminate(err.Error())
+		return
+	}
+
+	if migrateFlag {
+		renameSuites(src)
 		return
 	}
 
@@ -179,6 +187,45 @@ func main() {
 	}
 
 	reporter.Flush()
+}
+
+func renameSuites(rootDir string) {
+	fmt.Println("Start suites rename")
+
+	source := &DirSuiteFileIterator{RootDir: rootDir, SuiteExt: ".json"}
+	source.init()
+
+	for source.HasNext() {
+		sf := source.Next()
+
+		if sf == nil {
+			continue
+		}
+
+		if strings.HasSuffix(sf.Path, suiteExt) {
+			fmt.Println("Ignore " + sf.Path)
+			continue
+		}
+
+		fmt.Println("Processing " + sf.Path)
+
+		if isSuite(sf.Path) {
+			cmd := exec.Command("svn", "mv", sf.Path, strings.Replace(sf.Path, ".json", suiteExt, 1))
+			err := cmd.Start()
+			if err != nil {
+				log.Fatal(err)
+			}
+			err = cmd.Wait()
+			if err != nil {
+				fmt.Println("Failed to rename: " + err.Error())
+				continue
+			}
+
+			fmt.Printf("File renamed: %s, %s\n", sf.Path, strings.Replace(sf.Path, ".json", suiteExt, 1))
+		}
+
+	}
+	fmt.Println("Finish")
 }
 
 func addAll(src, target map[string]interface{}) {
